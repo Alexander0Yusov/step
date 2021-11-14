@@ -36,125 +36,104 @@ int main()
     // условие на длину
     // заново
 
-
-    body b;
+    body b1("first");
+    body b2("second");
     apple a;    
 
-    int key = 8;
-    bool for_open = false;
+    int key1, key2;
+    key1 = key2 = 1;
+
+    bool for_open1, for_open2;
+    for_open1 = for_open2 = false;
 
     while (!GetAsyncKeyState(VK_ESCAPE)) { // (key)
-        point last_point = b.l_points.back();
-                
-        if (b.head() == a) {             
-            for_open = true;
+        // сохранение в буферную переменную последней точки змейки
+        point last_point1 = b1.l_points.back();
+        point last_point2 = b2.l_points.back();
+        
+        // при условии что голова змейки совпадает с яблоком, добавим буферную переменную
+        // last_point1(2) к телу змейки, но после выполнения хода в любом направлении
+        if (b1.head() == a) {             
+            for_open1 = true;
             apple a2;
             a = a2;
-        }        
-        
-        b.print(a);
-        //a.print(); 
+        } 
+
+        if (b2.head() == a) {
+            for_open2 = true;
+            apple a2;
+            a = a2;
+        }
+                
+        b1.print(a, b2);        
 
         GetAsyncKeyState(VK_PAUSE);
         
+        // управление 1
         if (GetAsyncKeyState(VK_UP)) {
-            key = 8;
+            key1 = 1;
         }
         if (GetAsyncKeyState(VK_DOWN)) {
-            key = 5;
+            key1 = 2;
         }
         if (GetAsyncKeyState(VK_RIGHT)) {
-            key = 6;
+            key1 = 3;
         }
         if (GetAsyncKeyState(VK_LEFT)) {
-            key = 4;
+            key1 = 4;
         }
-        switch (key) {
-        case 8:b.move(up);
+
+        // управление 2
+        if (GetAsyncKeyState(VK_NUMPAD8)) {
+            key2 = 1;
+        }
+        if (GetAsyncKeyState(VK_NUMPAD5)) {
+            key2 = 2;
+        }
+        if (GetAsyncKeyState(VK_NUMPAD6)) {
+            key2 = 3;
+        }
+        if (GetAsyncKeyState(VK_NUMPAD4)) {
+            key2 = 4;
+        }
+
+        // выполнение хода 1 змейки
+        switch (key1) {
+        case 1:b1.move(up);
             break;
-        case 5:b.move(down);
+        case 2:b1.move(down);
             break;
-        case 6:b.move(Right);
+        case 3:b1.move(Right);
             break;
-        case 4:b.move(Left);
+        case 4:b1.move(Left);
             break;
         }
 
-        if (for_open) {
-            b.add(last_point);              
-            for_open = false;
-        }        
+        // выполнение хода 2 змейки
+        switch (key2) {
+        case 1:b2.move(up);
+            break;
+        case 2:b2.move(down);
+            break;
+        case 3:b2.move(Right);
+            break;
+        case 4:b2.move(Left);
+            break;
+        }
+
+        // если переменная for_open1(2) истина, то добавление буферной переменной происходит
+        // и снова for_open1 делаем ложью, чтобы при каждом шаге не плюсовалось
+        if (for_open1) {
+            b1.add(last_point1);              
+            for_open1 = false;
+        }
+        if (for_open2) {
+            b2.add(last_point2);
+            for_open2 = false;
+        }
 
         system("cls");
-
-        // ловля бездействия
-        if (key == 1) {
-            key = 0;
-        }
-        //Sleep(200);        
-        //system("pause");
     }    
 }
 
-/*
-    int key = _getch();
-  while (key != Console::keyEscape) {
-    short LX = Pen->getX();
-    short LY = Pen->getY();
-    Pen->Hide();
-    switch (key) {
-    case Console::keyLeft : { LX--; break; }
-    case Console::keyRight: { LX++; break; }
-    case Console::keyUp   : { LY--; break; }
-    case Console::keyDown : { LY++; break; }
-    case Console::keyF5   : { Objects = AddBank(Objects, Pen->getX(), Pen->getY()); break; }
-    case Console::keyF6   : { Objects = AddShop(Objects, Pen->getX(), Pen->getY()); break; }
-    case Console::keyF7   : { Objects = AddHouse(Objects, Pen->getX(), Pen->getY()); break; }
-    }
-    if (!(LX >= 0)) { LX = 0; }
-    if (!(LX < 81)) { LX = 80; }
-    if (!(LY > 0)) { LY = 1; }
-    if (!(LY < 26)) { LY = 25; }
-    Pen->setXY(LX, LY);
-    if (NULL != Objects) {
-      Objects->ListDraw();
-    }
-    Pen->Draw();
-
-    key = _getch();
-  }
-  // очи
-
-  коды клавишь:
-
-  static const int keyEscape = 27;
-  static const int keySpace = 32;
-  static const int keyBackspace = 8;
-  static const int keyTab = 9;
-  static const int keyEnter = 13;
-  static const int keyInsert = 82;
-  static const int keyDelete = 83;
-  static const int keyUp = 72;
-  static const int keyDown = 80;
-  static const int keyLeft = 75;
-  static const int keyRight = 77;
-  static const int keyPageUp = 73;
-  static const int keyPageDown = 81;
-  static const int keyHome = 71;
-  static const int keyEnd = 79;
-  static const int keyCenter = 76;
-  static const int keyF1 = 59;
-  static const int keyF2 = 60;
-  static const int keyF3 = 61;
-  static const int keyF4 = 62;
-  static const int keyF5 = 63;
-  static const int keyF6 = 64;
-  static const int keyF7 = 65;
-  static const int keyF8 = 66;
-  static const int keyF9 = 67;
-  static const int keyF10 = 68;
-  static const int keyF11 = 69;
-  static const int keyF12 = 70;
-
-    */
 

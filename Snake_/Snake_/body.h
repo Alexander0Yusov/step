@@ -22,12 +22,24 @@ enum direction { up, down, Right, Left };
 
 class body {
 public:
+    string player_num;
     list <point> l_points;
 
     // две точки изначально    
     body() {
         list <point> tmp{ point(5, 9), point(5,10) };
         l_points = tmp;
+    }
+
+    body(string anyplayer) :player_num{ anyplayer } {
+        if (anyplayer == "first") {
+            list <point> tmp{ point(3, 9), point(3,10) };
+            l_points = tmp;
+        }
+        if (anyplayer == "second") {
+            list <point> tmp{ point(7, 9), point(7,10) };
+            l_points = tmp;
+        }
     }
 
     // добавление точки    
@@ -138,10 +150,75 @@ public:
         }
     }
 
-    void apple() {
-        //rand() % 10;
+    
+    // добавление второго игрока
+    void print(apple some_apple2, body b2) {
+
+        // размер пол€
+        int X, Y;
+        X = Y = 11;
+
+        // блок первой строки
+        for (int j = 0; j < Y; j++) {
+            cout << "#";
+            if (j == X - 1) {
+                cout << endl;
+            }
+        }
+
+        // блок средних строк
+        for (int i = 0; i < Y; i++) { // смена строки
+
+            for (int j = 0; j < X; j++) { // ѕ≈–≈Ѕќ– вдоль строки 
+                 // графика вертикальных границ            
+                if (j == 0 || j == (X - 1)) {
+                    cout << "#";
+                }
+
+                // графика пустого пол€ и рисовка змейки и €блока
+                if (j != 0 && j != (X - 1)) {
+                    // условие наличи€ точки
+                    bool flag = true;
+                    for (point iter : l_points)
+                    {
+                        // если данна€ координата (i, j) совпадает с любой из точек змейки1 то закрашиваем*
+                        if (j == iter.getX() && i == iter.getY()) {
+                            cout << "*";
+                            flag = false;
+                        }
+                    }
+                    for (point iter2 : b2.l_points)
+                    {
+                        // если данна€ координата (i, j) совпадает с любой из точек змейки2 то закрашиваем*
+                        if ((j == iter2.getX() && i == iter2.getY())) {
+                            cout << "*";
+                            flag = false;
+                        }
+                    }
+                    if ((j == some_apple2.getX() && i == some_apple2.getY())) {
+                        if (flag) {
+                            cout << "@";
+                            flag = false;
+                        }
+                    }
+                    // если точки нет, то "пусто"
+                    if (flag) {
+                        cout << " ";
+                    }
+                }
+            }
+            cout << endl;
+        }
+
+        // блок последней строки
+        for (int j = 0; j < X; j++) {
+            cout << "#";
+            if (j == X - 1) {
+                cout << endl;
+            }
+        }
+        Sleep(700);
     }
-
-
+    
 };
 
