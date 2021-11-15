@@ -22,22 +22,23 @@ enum direction { up, down, Right, Left };
 
 class body {
 public:
+    int size = 11;
     string player_num;
     list <point> l_points;
 
     // две точки изначально    
     body() {
-        list <point> tmp{ point(5, 9), point(5,10) };
+        list <point> tmp{ point(5, 8), point(5,9) };
         l_points = tmp;
     }
 
     body(string anyplayer) :player_num{ anyplayer } {
         if (anyplayer == "first") {
-            list <point> tmp{ point(3, 9), point(3,10) };
+            list <point> tmp{ point(3, 8), point(3,9) };
             l_points = tmp;
         }
         if (anyplayer == "second") {
-            list <point> tmp{ point(7, 9), point(7,10) };
+            list <point> tmp{ point(7, 8), point(7,9) };
             l_points = tmp;
         }
     }
@@ -57,27 +58,25 @@ public:
 
         // размер поля
         int X, Y;
-        X = Y = 11;
-
-        // блок первой строки
-        for (int j = 0; j < Y; j++) {
-            cout << "#";
-            if (j == X - 1) {
-                cout << endl;
-            }
-        }
+        X = Y = size;
 
         // блок средних строк
         for (int i = 0; i < Y; i++) { // смена строки
 
             for (int j = 0; j < X; j++) { // ПЕРЕБОР вдоль строки 
+
+                // графика горизонтальных границ            
+                if (i == 0 || i == Y - 1) {
+                    cout << "#";
+                }
+
                  // графика вертикальных границ            
-                if (j == 0 || j == (X - 1)) {
+                if ((j == 0 || j == (X - 1)) && (i > 0 && i < Y - 1)) {
                     cout << "#";
                 }
 
                 // графика пустого поля и рисовка змейки и яблока
-                if (j != 0 && j != (X - 1)) {
+                if (j != 0 && j != (X - 1) && (i > 0 && i < Y - 1)) {
                     // условие наличия точки
                     bool flag = true;
                     for (point iter : l_points)
@@ -104,18 +103,11 @@ public:
             }
             cout << endl;            
         }
-
-        // блок последней строки
-        for (int j = 0; j < X; j++) {
-            cout << "#";
-            if (j == X - 1) {
-                cout << endl;
-            }
-        }
+        
         Sleep(300);
     }
 
-    // по идее не имеющий смысла метод
+    // возвращает начало списка
     point head() {
         return *l_points.begin();
     }
@@ -156,27 +148,24 @@ public:
 
         // размер поля
         int X, Y;
-        X = Y = 11;
-
-        // блок первой строки
-        for (int j = 0; j < Y; j++) {
-            cout << "#";
-            if (j == X - 1) {
-                cout << endl;
-            }
-        }
-
-        // блок средних строк
+        X = Y = size;
+        
+        // вывод игрового поля
         for (int i = 0; i < Y; i++) { // смена строки
 
             for (int j = 0; j < X; j++) { // ПЕРЕБОР вдоль строки 
-                 // графика вертикальных границ            
-                if (j == 0 || j == (X - 1)) {
+                 // графика горизонтальных границ            
+                if (i == 0 || i == Y-1) {
+                    cout << "#";                    
+                }
+
+                // графика вертикальных границ
+                if ((j == 0 || j == (X - 1)) && (i > 0 && i < Y-1)) {
                     cout << "#";
                 }
 
                 // графика пустого поля и рисовка змейки и яблока
-                if (j != 0 && j != (X - 1)) {
+                if (j != 0 && j != (X - 1) && (i > 0 && i < Y - 1)) {
                     // условие наличия точки
                     bool flag = true;
                     for (point iter : l_points)
@@ -209,15 +198,34 @@ public:
             }
             cout << endl;
         }
+        Sleep(700);        
+    }
 
-        // блок последней строки
-        for (int j = 0; j < X; j++) {
-            cout << "#";
-            if (j == X - 1) {
-                cout << endl;
-            }
+    bool interferention(body b2) {
+        point head1 = head();
+        for (point iter : b2.l_points)
+        {
+            // если данная координата (i, j) совпадает с любой из точек змейки1 то закрашиваем*
+            if (head1 == iter) {
+                return true;                
+            }           
         }
-        Sleep(700);
+        return false;
+    }
+
+    bool is_wall() {
+        point head_ = head();        
+            
+                if (head_.getX() == 0 || head_.getX() == size-1 || head_.getY() == 0 || head_.getY() == size-1) {
+                    return true;
+                } 
+                else {
+                    return false;
+                }
+    }
+
+    bool is_full() {
+        return get_len() == 10;
     }
     
 };

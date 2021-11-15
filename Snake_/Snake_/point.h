@@ -31,39 +31,8 @@ public:
         cout << x << "|" << y;
     }
 
-
     point(const point& sourth) :x{ sourth.x }, y{ sourth.y }{
-    }
-
-    /*
-        void print() {
-            if (y > 0) {
-                for (int i = 0; i < y - 1; i++) {
-                    cout << endl;
-                }
-                if (x > 0) {
-                    for (int i = 0; i < x - 1; i++) {
-                        cout << " ";
-                    }
-                    cout << "*";
-                }
-                if (x == 0) {
-                    cout << "*";
-                }
-            }
-            if (y == 0) {
-                if (x > 0) {
-                    for (int i = 0; i < x - 1; i++) {
-                        cout << " ";
-                    }
-                    cout << "*";
-                }
-                if (x == 0) {
-                    cout << "*";
-                }
-            }
-        }
-        */
+    }    
 };
 
 bool operator==(const point& first, const point& second) {
