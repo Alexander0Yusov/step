@@ -24,10 +24,12 @@ int main()
 {
     srand(time(NULL));
     setlocale(LC_ALL, "ru");
-
-    point p3(3, 5);
-    point p4(3, 6);
-       
+    
+    SetConsoleTitle(L"Welcome to the game");
+    
+    HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hStdOut, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+          
     int key1, key2;
     key1 = key2 = 1;
 
@@ -235,11 +237,11 @@ int main()
                 std::cout << " You vin!" << endl;
             }
             else {
-                cout << "You crushed :(" << endl;
+                std::cout << "You crushed :(" << endl;
             }            
         }
 }
-cout<<"\tGoodbye!";
+std::cout<<"\tGoodbye!";
 }
 
 

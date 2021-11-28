@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="point" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAACAAAAAAAAAAAAAAAAAAAAAAAAAAABgAGAAAAA=</HashCode>
+      <FileName>point.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="body" Collapsed="true">
+    <Position X="8.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAAAAAgAAAAADAAIQAAAAAIwAAAAAAAAAAAAACBAA=</HashCode>
+      <FileName>body.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="apple" Collapsed="true">
+    <Position X="5.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>apple.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="direction" Collapsed="true">
+    <Position X="8.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAAAAACACAAgAAAAA=</HashCode>
+      <FileName>body.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
